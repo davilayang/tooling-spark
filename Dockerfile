@@ -15,30 +15,31 @@ RUN wget https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SP
     && mv spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION} /opt/spark \
     && rm spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz
 
-RUN pip3 install ipython
-
-# config the terminal
-RUN echo "PS1='\[\033[1;34m\][\w] \n\[\e[0;32m\]\u\[\033[1;34m\]@🐳\[\033[1;36m\]\h\[\033[1;34m\] ❯ \[\033[0m\]'" >> ~/.bashrc &&\
-    echo "set bell-style none" >> /etc/inputrc
-
 # Fix the value of PYTHONHASHSEED
 # Note: this is needed when you use Python 3.3 or greater
 ENV PYTHONHASHSEED 1
 
-ENV SPARK_HOME="/opt/spark"
-ENV PATH="${SPARK_HOME}/bin:${PATH}"
-ENV PYSPARK_DRIVER_PYTHON=ipython
-# RUN export PYSPARK_DRIVER_PYTHON=ipython
+COPY requirements.txt requirements.txt 
+RUN pip3 install --no-cache-dir --requirement "requirements.txt"
+
+ENV SPARK_HOME="/opt/spark" \
+    PATH="${SPARK_HOME}/bin:${PATH}" \
+    PYSPARK_DRIVER_PYTHON=ipython
+
+# config the terminal
+RUN echo "PS1='\[\033[1;34m\][\w] \n\[\e[0;32m\]\u\[\033[1;34m\]@🐳\[\033[1;36m\]\h\[\033[1;34m\] ❯ \[\033[0m\]'" >> ~/.bashrc &&\
+    echo "set bell-style none" >> /etc/inputrc
 
 # reset entrypoint 
 SHELL ["/bin/sh", "-c"]
 ENTRYPOINT []
 CMD ["bash"]
 
-# final image based on alpine
-# FROM alpine:latest
-
-
 # usage:
 # docker build . -t spark-dev
 # docker run -it --rm spark-dev /bin/bash
+
+
+# TODO: use entrypoint.sh
+# TODO: use image "alpine:latest"
+# TODO: separate required pypi pacakges with optional?

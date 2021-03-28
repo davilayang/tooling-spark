@@ -2,9 +2,23 @@
 
 ## Use Case
 
-+ Start a Docker container with Spark and Jupyter Lab configured
++ Start a Docker container with Spark and Jupyter Lab installed
 
 ## Steps
+
+```bash
+# build image
+docker build . -t spark-dev
+
+# start container
+docker run -it --rm -p 8888:8888 -v $(pwd):/app spark-dev /bin/bash
+
+# start jupyter lab in container, default port 8888
+jupyter lab --ip 0.0.0.0 --allow-root --no-browser
+
+# start chrome on host without address bar
+chrome --new-window --app=http://127.0.0.1:8888/lab?token=<token>
+```
 
 ## References
 

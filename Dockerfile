@@ -8,7 +8,8 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y \
     wget \
     python3.7 \
-    python3-pip
+    python3-pip \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN wget https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz \
     && tar -xvzf spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz \
@@ -43,3 +44,4 @@ CMD ["bash"]
 # TODO: use entrypoint.sh
 # TODO: use image "alpine:latest"
 # TODO: separate required pypi pacakges with optional?
+# TOOD: use multi-stage build to reduce the layers created (docker best practices)

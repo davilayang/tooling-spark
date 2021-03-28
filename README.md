@@ -29,9 +29,10 @@ Official:
 Repos:  
 
 + [docker-spark](https://github.com/big-data-europe/docker-spark)
++ [docker-spark-cluster](https://github.com/mvillarrealb/docker-spark-cluster)
 
 Articles:  
 
 + [DIY: Apache Spark & Docker](https://towardsdatascience.com/diy-apache-spark-docker-bb4f11c10d24)
 + [How to install PySpark and Jupyter Notebook in 3 Minutes](https://www.sicara.ai/blog/2017-05-02-get-started-pyspark-jupyter-notebook-3-minutes)
-
++ [Creating a Spark Standalone Cluster with Docker and docker-compose](https://medium.com/@marcovillarreal_40011/creating-a-spark-standalone-cluster-with-docker-and-docker-compose-ba9d743a157f)

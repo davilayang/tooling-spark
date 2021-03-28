@@ -22,13 +22,13 @@ chrome --new-window --app=http://127.0.0.1:8888/lab?token=<token>
 
 ## References
 
-Offcial:  
+Official:  
 
 + [Spark Overview](https://spark.apache.org/docs/latest/)
 
 Repos:  
 
-+ [](https://github.com/big-data-europe/docker-spark)
++ [docker-spark](https://github.com/big-data-europe/docker-spark)
 
 Articles:  
 

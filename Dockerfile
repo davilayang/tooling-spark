@@ -27,7 +27,7 @@ ENV SPARK_HOME="/opt/spark" \
     PYSPARK_DRIVER_PYTHON=ipython
 
 # config the terminal
-RUN echo "PS1='\[\033[1;34m\][\w] \n\[\e[0;32m\]\u\[\033[1;34m\]@🐳\[\033[1;36m\]\h\[\033[1;34m\] ❯ \[\033[0m\]'" >> ~/.bashrc &&\
+RUN echo "PS1='\[\033[0;37m\][\w] \n\[\e[1;35m\]\u\[\033[1;34m\]@🐳\[\033[1;36m\]\h\[\033[1;34m\] ❯ \[\033[0m\]'" >> ~/.bashrc &&\
     echo "set bell-style none" >> /etc/inputrc
 
 # reset entrypoint 

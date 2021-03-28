@@ -17,10 +17,9 @@ RUN wget https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SP
 
 RUN pip3 install ipython
 
-# set up prompt
-RUN echo "PS1='\[\033[1;34m\][\w] \n\[\e[0;32m\]\u\[\033[1;34m\]@🐳\[\033[1;36m\]\h\[\033[1;34m\] ❯ \[\033[0m\]'" >> ~/.bashrc
-# disable bell sound
-RUN echo "set bell-style none" >> /etc/inputrc
+# config the terminal
+RUN echo "PS1='\[\033[1;34m\][\w] \n\[\e[0;32m\]\u\[\033[1;34m\]@🐳\[\033[1;36m\]\h\[\033[1;34m\] ❯ \[\033[0m\]'" >> ~/.bashrc &&\
+    echo "set bell-style none" >> /etc/inputrc
 
 # Fix the value of PYTHONHASHSEED
 # Note: this is needed when you use Python 3.3 or greater
@@ -31,7 +30,15 @@ ENV PATH="${SPARK_HOME}/bin:${PATH}"
 ENV PYSPARK_DRIVER_PYTHON=ipython
 # RUN export PYSPARK_DRIVER_PYTHON=ipython
 
+# reset entrypoint 
+SHELL ["/bin/sh", "-c"]
+ENTRYPOINT []
+CMD ["bash"]
 
 # final image based on alpine
 # FROM alpine:latest
 
+
+# usage:
+# docker build . -t spark-dev
+# docker run -it --rm spark-dev /bin/bash

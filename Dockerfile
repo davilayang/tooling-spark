@@ -17,6 +17,11 @@ RUN wget https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SP
 
 RUN pip3 install ipython
 
+# set up prompt
+RUN echo "PS1='\[\033[1;34m\][\w] \n\[\e[0;32m\]\u\[\033[1;34m\]@🐳\[\033[1;36m\]\h\[\033[1;34m\] ❯ \[\033[0m\]'" >> ~/.bashrc
+# disable bell sound
+RUN echo "set bell-style none" >> /etc/inputrc
+
 # Fix the value of PYTHONHASHSEED
 # Note: this is needed when you use Python 3.3 or greater
 ENV PYTHONHASHSEED 1

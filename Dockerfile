@@ -24,7 +24,7 @@ COPY requirements.txt requirements.txt
 RUN pip3 install --no-cache-dir --requirement "requirements.txt"
 
 ENV SPARK_HOME="/opt/spark" \
-    PATH="${SPARK_HOME}/bin:${PATH}" \
+    PATH="/opt/spark/bin:${PATH}" \
     PYSPARK_DRIVER_PYTHON=ipython
 
 # config the terminal

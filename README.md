@@ -65,6 +65,7 @@ spark = SparkSession(sc)
 Official:  
 
 + [Spark Overview](https://spark.apache.org/docs/latest/)
++ [Spark Standalone Mode](http://spark.apache.org/docs/latest/spark-standalone.html)
 
 Repos:  
 
@@ -77,3 +78,4 @@ Articles:
 + [DIY: Apache Spark & Docker](https://towardsdatascience.com/diy-apache-spark-docker-bb4f11c10d24)
 + [How to install PySpark and Jupyter Notebook in 3 Minutes](https://www.sicara.ai/blog/2017-05-02-get-started-pyspark-jupyter-notebook-3-minutes)
 + [Creating a Spark Standalone Cluster with Docker and docker-compose](https://medium.com/@marcovillarreal_40011/creating-a-spark-standalone-cluster-with-docker-and-docker-compose-ba9d743a157f)
++ [透過 Multiple Stage Builds 編譯出最小的 Docker Image](https://jiepeng.me/2018/06/09/use-docker-multiple-stage-builds)

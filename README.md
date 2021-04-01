@@ -17,9 +17,10 @@ docker build . -t spark-dev
 ```bash
 # start container
 docker run -it --rm -p 8888:8888 -p 4040:4040 -v $(pwd):/app spark-dev /bin/bash
-# Spark UI at http://localhost:4040
-# Jupyter at http://localhost:8888
 ```
+
++ Spark UI at http://localhost:4040
++ Jupyter Lab at http://localhost:8888
 
 ### Approach 1, `PYSPARK_DRIVER`
 
@@ -94,6 +95,9 @@ docker-compose up --build --detach
 # stop the cluster
 docker-compose down
 ```
+
++ Spark Master UI at: http://localhost:8088/
++ Spark Worker UI at: http://localhost:8081/
 
 ## References
 

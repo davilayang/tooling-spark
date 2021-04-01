@@ -120,6 +120,7 @@ Repos:
 + [docker-spark](https://github.com/big-data-europe/docker-spark)
 + [docker-spark-cluster](https://github.com/mvillarrealb/docker-spark-cluster)
 + [docker-sbt](https://github.com/mozilla/docker-sbt/blob/main/Dockerfile)
++ [apache/spark, Dockerfile](https://github.com/apache/spark/blob/master/resource-managers/kubernetes/docker/src/main/dockerfiles/spark/Dockerfile)
 
 Articles:  
 
@@ -127,3 +128,4 @@ Articles:
 + [How to install PySpark and Jupyter Notebook in 3 Minutes](https://www.sicara.ai/blog/2017-05-02-get-started-pyspark-jupyter-notebook-3-minutes)
 + [Creating a Spark Standalone Cluster with Docker and docker-compose](https://medium.com/@marcovillarreal_40011/creating-a-spark-standalone-cluster-with-docker-and-docker-compose-ba9d743a157f)
 + [透過 Multiple Stage Builds 編譯出最小的 Docker Image](https://jiepeng.me/2018/06/09/use-docker-multiple-stage-builds)
++ [Apache Spark Cluster on Docker](https://www.kdnuggets.com/2020/07/apache-spark-cluster-docker.html)

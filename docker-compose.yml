@@ -1,0 +1,34 @@
+version: '3'
+services:
+  spark-master:
+    build: . # from Dockerfile in the directory
+    entrypoint: ["/bin/bash", "/app/start-cluster.sh"]
+    ports:
+      - target: 8088  #container
+        published: 8088  #host
+        protocol: tcp
+        mode: host
+      - target: 7077
+        published: 7077
+        protocol: tcp
+        mode: host
+    environment:
+      SPARK_TYPE: master # as the spark-master
+      SPARK_HOME: /opt/spark
+      SPARK_MASTER_PORT: 7077
+      SPARK_MASTER_WEBUI_PORT: 8088
+      PYSPARK_DRIVER_PYTHON: ipython
+  spark-worker-1:
+    build: .
+    entrypoint: ["/bin/bash", "/app/start-cluster.sh"]
+    depends_on:
+      - spark-master
+    ports:
+      - target: 8081
+        published: 8081
+        protocol: tcp
+        mode: host
+    environment:
+      SPARK_MASTER: spark://spark-master:7077 # refers to the service spark-master
+      SPARK_HOME: /opt/spark
+      SPARK_WORKER_WEBUI_PORT: 8081

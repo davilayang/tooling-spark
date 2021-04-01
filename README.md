@@ -99,6 +99,15 @@ docker-compose down
 + Spark Master UI at: http://localhost:8088/
 + Spark Worker UI at: http://localhost:8081/
 
+(interactive shell within the cluster)
+
+```bash
+# exec into master or worker
+docker exec -it tooling-spark_spark-master_1 /bin/bash
+# start pyspark
+pyspark --master spark://spark-master:7077
+```
+
 ## References
 
 Official:  

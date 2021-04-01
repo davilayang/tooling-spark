@@ -2,62 +2,97 @@
 
 ## Use Case
 
-+ Start a Docker container with Spark and Jupyter Lab installed
++ Start a Docker container with Spark
++ Start a SPARK cluster with single worker
 
-## Steps
+## Start a Docker container with Spark
 
 ```bash
-# build image
+# build the image
 docker build . -t spark-dev
-
-# start container
-docker run -it --rm -p 8888:8888 -p 4040:4040 -v $(pwd):/app spark-dev /bin/bash
 ```
 
-Spark UI is at http://localhost:4040
+### Jupyter Lab in Local mode
 
-### Start with Juppyter Lab
+```bash
+# start container
+docker run -it --rm -p 8888:8888 -p 4040:4040 -v $(pwd):/app spark-dev /bin/bash
+# Spark UI at http://localhost:4040
+# Jupyter at http://localhost:8888
+```
 
-(Approach 1, with `pyspark` using Jupyter as Driver)
+### Approach 1, `PYSPARK_DRIVER`
+
+(in SPARK container)
 
 ```bash
 export PYSPARK_DRIVER_PYTHON=jupyter
 export PYSPARK_DRIVER_PYTHON_OPTS='lab --ip 0.0.0.0 --allow-root --no-browser'
 
-# jupyter lab in container, default port 8888
-pyspark 
-# start chrome on host without address bar
-chrome --new-window --app=http://127.0.0.1:8888/lab?token=<token>
+# start jupyter lab, default port 8888; copy the token as <token>
+pyspark
 ```
 
-```python
-sc # for SparkContext
-spark # for SparkSession
-```
-
-(Approach 2, with package `findspark`)
+(in host machine)
 
 ```bash
-conda install -c conda-forge findspark
-
-# start jupyter lab in container, default port 8888
-jupyter lab --ip 0.0.0.0 --allow-root --no-browser
 # start chrome on host without address bar
 chrome --new-window --app=http://127.0.0.1:8888/lab?token=<token>
 ```
 
-```python
-import findspark
-import pyspark
+(in jupyter notebook cell)
 
+```python
+sc #for SparkContext
+spark #for SparkSession
+```
+
+### Approach 2, `findspark`
+
+(in SPARK container)
+
+```bash
+# install package
+pip3 install findspark
+
+# start jupyter lab in container, default port 8888; copy the token as <token>
+jupyter lab --ip 0.0.0.0 --allow-root --no-browser
+```
+
+(in host machine)
+
+```bash
+# start chrome on host without address bar
+chrome --new-window --app=http://127.0.0.1:8888/lab?token=<token>
+```
+
+(in jupyter notebook cell)
+
+```python
+# find the spark installation on system
+import findspark
 findspark.init()
 findspark.find()
 
+# start spark, also logged to jupyter
+import pyspark
 from pyspark import SparkContext, SparkConf
 from pyspark.sql import SparkSession
 conf = pyspark.SparkConf().setAppName('appName').setMaster('local')
-sc = pyspark.SparkContext(conf=conf)
-spark = SparkSession(sc)
+sc = pyspark.SparkContext(conf=conf) #for SparkContext
+spark = SparkSession(sc) #for SparkSession
+```
+
+## Start a SPARK cluster with single worker
+
+```bash
+# build and start the cluster
+docker-compose up --build 
+# build and start the cluster in detached mode
+docker-compose up --build --detach
+
+# stop the cluster
+docker-compose down
 ```
 
 ## References

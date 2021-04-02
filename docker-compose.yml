@@ -1,7 +1,8 @@
 version: '3'
 x-spark-common:
   &spark-common
-  build: . # from Dockerfile in directory
+  build: 
+    context: ./spark_image 
   entrypoint: ["/bin/bash", "/app/start-cluster.sh"]
   environment:
     &spark-common-env
@@ -9,7 +10,8 @@ x-spark-common:
 
 services:
   jupyter-server: 
-    context: ./jupyter_image
+    build: 
+      context: ./jupyter_image
     stdin_open: true # docker run -i
     tty: true        # docker run -t
     ports: 
@@ -19,7 +21,6 @@ services:
         mode: host
   spark-master:
     <<: *spark-common
-    context: ./spark_image
     ports:
       - target: 8080 # web UI
         published: 8080
@@ -36,7 +37,6 @@ services:
       SPARK_MASTER_WEBUI_PORT: 8080
   spark-worker-1:
     <<: *spark-common
-    context: ./spark_image
     depends_on:
       - spark-master
     ports:

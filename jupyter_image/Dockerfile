@@ -16,9 +16,11 @@ RUN pip3 install --no-cache-dir \
     "jupyterlab>=3.0.12,<4.0.0"
     # "pyspark>=3.1.1,<4.0.0"
 
-# config jupyter lab theme
-COPY ./theme-dark-extension/index.css /usr/local/share/jupyter/lab/themes/@jupyterlab/theme-dark-extension/index.css
-COPY ./theme-light-extension/index.css /usr/local/share/jupyter/lab/themes/@jupyterlab/theme-light-extension/index.css
+# config jupyter theme
+COPY ./theme-dark-extension/index-monokai.css \
+    /usr/local/share/jupyter/lab/themes/@jupyterlab/theme-dark-extension/index.css
+COPY ./theme-light-extension/index.css \
+    /usr/local/share/jupyter/lab/themes/@jupyterlab/theme-light-extension/index.css
 
 # insatll optional Python dependencies from requirements.txt
 COPY requirements.txt requirements.txt 

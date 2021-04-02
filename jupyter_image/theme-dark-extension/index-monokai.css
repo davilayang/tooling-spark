@@ -182,7 +182,7 @@ all of MD as it is not optimized for dense, information rich UIs.
   --jp-code-font-size: 13px;
   --jp-code-line-height: 1.3077; /* 17px for 13px base */
   --jp-code-padding: 5px; /* 5px for 13px base, codemirror highlighting needs integer px value */
-  --jp-code-font-family-default: Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+  --jp-code-font-family-default: Fira Code Retina, Sarasa Term TC, Iosevka Term, Menlo, Consolas, 'DejaVu Sans Mono', monospace;
   --jp-code-font-family: var(--jp-code-font-family-default);
 
   /* This gives a magnification of about 125% in presentation mode over normal. */
@@ -199,9 +199,9 @@ all of MD as it is not optimized for dense, information rich UIs.
    * theme these would go from light to dark.
    */
 
-  --jp-layout-color0: #282a36; /* !!!customized: for background color */
-  --jp-layout-color1:  var(--md-grey-900);/* !!!customized: for active cell color */
-  --jp-layout-color2:  #44475a;
+  --jp-layout-color0: #272822; /* !!!customized: for background color */
+  --jp-layout-color1: var(--md-grey-900); /* !!!customized: for active cell color */
+  --jp-layout-color2: var(--md-grey-800); /* !!!customized */
   --jp-layout-color3: var(--md-grey-700);
   --jp-layout-color4: var(--md-grey-600);
 
@@ -220,7 +220,7 @@ all of MD as it is not optimized for dense, information rich UIs.
   /* Brand/accent */
 
   --jp-brand-color0: var(--md-blue-700);
-  --jp-brand-color1: var(--md-blue-500);
+  --jp-brand-color1: #E69F66;  /* !!!: for selected file color */
   --jp-brand-color2: var(--md-blue-300);
   --jp-brand-color3: var(--md-blue-100);
   --jp-brand-color4: var(--md-blue-50);
@@ -275,10 +275,10 @@ all of MD as it is not optimized for dense, information rich UIs.
 
   /* A custom blend of MD grey and blue 600
    * See https://meyerweb.com/eric/tools/color-blend/#546E7A:1E88E5:5:hex */
-  --jp-cell-inprompt-font-color: #ffb86c; /* !!!: for active cell In[] color*/
+  --jp-cell-inprompt-font-color: #E69F66; /* !!!: for active cell In[] color*/
   /* A custom blend of MD grey and orange 600
    * https://meyerweb.com/eric/tools/color-blend/#546E7A:F4511E:5:hex */
-  --jp-cell-outprompt-font-color: #bd93f9; /* !!!: for active cell Out[] color */
+  --jp-cell-outprompt-font-color: #66D9EF	; /* !!!: for active cell Out[] color */
 
   /* Notebook specific styles */
 
@@ -338,25 +338,25 @@ all of MD as it is not optimized for dense, information rich UIs.
 
   /* Code mirror specific styles */
 
-  --jp-mirror-editor-keyword-color: #ff79c6; /* !!!: for keywords, e.g. imoprt, True, False */
+  --jp-mirror-editor-keyword-color: #F92672; /* !!!: for keywords, e.g. imoprt, True, False */
   --jp-mirror-editor-atom-color: var(--md-blue-300);
-  --jp-mirror-editor-number-color: #bd93f9; /* !!!: for numbers */
-  --jp-mirror-editor-def-color: #50fa7b; /* !!!: for function names */
-  --jp-mirror-editor-variable-color:  #f8f8f2; /* !!!: for variables */
+  --jp-mirror-editor-number-color: #AE81FF; /* !!!: for numbers */
+  --jp-mirror-editor-def-color: #66D9EF; /* !!!: for function names */
+  --jp-mirror-editor-variable-color:  #F8F8F2; /* !!!: for variables */
   --jp-mirror-editor-variable-2-color: var(--md-blue-400);
   --jp-mirror-editor-variable-3-color: var(--md-green-600);
-  --jp-mirror-editor-punctuation-color: #ffb86c; /* !!!: for ? */
-  --jp-mirror-editor-property-color: #8be9fd; /* !!!: for methods/properties */
-  --jp-mirror-editor-operator-color: #ffb86c;  /* !!!: for operators, e.g. = sign */
-  --jp-mirror-editor-comment-color: #6272a4; /* !!!: for comments */
-  --jp-mirror-editor-string-color: #f1fa8c; /* !!! for strings */
-  --jp-mirror-editor-string-2-color: #f1fa8c; /* !!! for strings */
+  --jp-mirror-editor-punctuation-color: #E69F66; /* !!!: for ? */
+  --jp-mirror-editor-property-color: #A6E22E; /* !!!: for methods/properties */
+  --jp-mirror-editor-operator-color: #FD971F;  /* !!!: for operators, e.g. = sign */
+  --jp-mirror-editor-comment-color: #75715E; /* !!!: for comments */
+  --jp-mirror-editor-string-color: #E6DB74; /* !!! for strings */
+  --jp-mirror-editor-string-2-color: #E6DB74; /* !!! for strings */
   --jp-mirror-editor-meta-color: #aa22ff;
   --jp-mirror-editor-qualifier-color: #555;
-  --jp-mirror-editor-builtin-color: #50fa7b; /* !!!: for built-in functions, e.g. print */
+  --jp-mirror-editor-builtin-color: #66D9EF; /* !!!: for built-in functions, e.g. print */
   --jp-mirror-editor-bracket-color: #997;
-  --jp-mirror-editor-tag-color: #ff79c6; /* !!!: for html tags */
-  --jp-mirror-editor-attribute-color: #50fa7b; /* !!!: for attributes? */
+  --jp-mirror-editor-tag-color: #F92672; /* !!!: for html tags */
+  --jp-mirror-editor-attribute-color: #A6E22E; /* !!!: for attributes? */
   --jp-mirror-editor-header-color: var(--md-blue-500);
   --jp-mirror-editor-quote-color: var(--md-green-300);
   --jp-mirror-editor-link-color: var(--md-blue-700);

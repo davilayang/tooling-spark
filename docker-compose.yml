@@ -8,29 +8,39 @@ x-spark-common:
     SPARK_HOME: /opt/spark
 
 services:
-  spark-master:
-    <<: *spark-common
-    ports:
-      - target: 8088  #container
-        published: 8088  #host
+  jupyter-server: 
+    context: ./jupyter_image
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    ports: 
+      - target: 8888  #container
+        published: 8888  #host
         protocol: tcp
         mode: host
-      - target: 7077
+  spark-master:
+    <<: *spark-common
+    context: ./spark_image
+    ports:
+      - target: 8080 # web UI
+        published: 8080
+        protocol: tcp
+        mode: host
+      - target: 7077 # master port
         published: 7077
         protocol: tcp
         mode: host
     environment:
       <<: *spark-common-env
-      SPARK_TYPE: master # as the master in cluster
+      SPARK_TYPE: master # variable for script, as the master in cluster
       SPARK_MASTER_PORT: 7077
-      SPARK_MASTER_WEBUI_PORT: 8088
-      PYSPARK_DRIVER_PYTHON: ipython
+      SPARK_MASTER_WEBUI_PORT: 8080
   spark-worker-1:
     <<: *spark-common
+    context: ./spark_image
     depends_on:
       - spark-master
     ports:
-      - target: 8081
+      - target: 8081  # web UI
         published: 8081
         protocol: tcp
         mode: host
@@ -38,7 +48,3 @@ services:
       <<: *spark-common-env
       SPARK_MASTER: spark://spark-master:7077 # refers to service "spark-master"
       SPARK_WORKER_WEBUI_PORT: 8081
-  # app:
-  #   image: app:1.2.3
-  #   stdin_open: true # docker run -i
-  #   tty: true        # docker run -t

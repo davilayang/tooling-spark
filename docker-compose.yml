@@ -38,3 +38,7 @@ services:
       <<: *spark-common-env
       SPARK_MASTER: spark://spark-master:7077 # refers to service "spark-master"
       SPARK_WORKER_WEBUI_PORT: 8081
+  # app:
+  #   image: app:1.2.3
+  #   stdin_open: true # docker run -i
+  #   tty: true        # docker run -t

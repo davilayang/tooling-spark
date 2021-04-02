@@ -129,3 +129,4 @@ Articles:
 + [Creating a Spark Standalone Cluster with Docker and docker-compose](https://medium.com/@marcovillarreal_40011/creating-a-spark-standalone-cluster-with-docker-and-docker-compose-ba9d743a157f)
 + [透過 Multiple Stage Builds 編譯出最小的 Docker Image](https://jiepeng.me/2018/06/09/use-docker-multiple-stage-builds)
 + [Apache Spark Cluster on Docker](https://www.kdnuggets.com/2020/07/apache-spark-cluster-docker.html)
++ [Apache Spark on Dataproc vs. Google BigQuery](https://www.kdnuggets.com/2020/07/apache-spark-dataproc-vs-google-bigquery.html)

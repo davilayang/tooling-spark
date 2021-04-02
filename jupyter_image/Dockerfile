@@ -29,3 +29,6 @@ CMD ["--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root", "--NotebookA
 # docker build jupyter_image/. -t spark-jupyter
 # docker run -it --rm -p 8888:8888 spark-jupyter
 # chrome --new-window --app=http://127.0.0.1:8888/lab
+
+# TODO: add CSS and font to config the scene
+# TODO: another way to connect to cluster without pip install pyspark?

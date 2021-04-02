@@ -23,3 +23,5 @@ ENV PYSPARK_DRIVER_PYTHON=python3
 SHELL ["/bin/sh", "-c"]
 ENTRYPOINT ["start-cluster.sh"]
 CMD []
+
+# TODO: use ARG to pass the version from docker-compose.yml when build

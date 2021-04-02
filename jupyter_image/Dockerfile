@@ -1,5 +1,4 @@
 FROM tooling-spark-base:latest
-# from local built image
 
 WORKDIR /app
 
@@ -22,6 +21,9 @@ COPY ./theme-dark-extension/index-monokai.css \
 COPY ./theme-light-extension/index.css \
     /usr/local/share/jupyter/lab/themes/@jupyterlab/theme-light-extension/index.css
 
+# config fonts
+# COPY ./fonts/FiraCode-Retina.ttf /usr/share/fonts/truetype/firacode/
+
 # insatll optional Python dependencies from requirements.txt
 COPY requirements.txt requirements.txt 
 RUN pip3 install --no-cache-dir --requirement "requirements.txt"
@@ -36,6 +38,5 @@ CMD ["--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root", "--NotebookA
 # docker run -it --rm -p 8888:8888 spark-jupyter
 # chrome --new-window --app=http://127.0.0.1:8888/lab
 
-# TODO: add CSS and font to config the scene
-## Fira Code Retina, Sarasa Term TC, Iosevka Term,
+# TODO: add fonts, e.g. "Fira Code Retina", "Sarasa Term TC", "Iosevka Term"
 # TODO: another way to connect to cluster without pip install pyspark?

@@ -13,7 +13,6 @@ RUN apt-get update && apt-get install -y \
 # install Python dependencies
 RUN pip3 install --no-cache-dir \
     "jupyterlab>=3.0.12,<4.0.0"
-    # "pyspark>=3.1.1,<4.0.0"
 
 # config jupyter theme
 COPY ./theme-dark-extension/index-monokai.css \

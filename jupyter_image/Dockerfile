@@ -12,9 +12,10 @@ RUN apt-get update && curl -fsSL https://deb.nodesource.com/setup_15.x | bash - 
     && rm -rf /var/lib/apt/lists/*
 
 # required
+ARG SPARK_VERSION=3.1.1
 RUN pip3 install --no-cache-dir \
     "jupyterlab>=3.0.12,<4.0.0" \
-    "pyspark==3.1.1"
+    "pyspark==${SPARK_VERSION}"
 
 # optional
 COPY requirements.txt requirements.txt 

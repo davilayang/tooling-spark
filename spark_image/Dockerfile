@@ -4,8 +4,8 @@ FROM tooling-spark-base:latest
 ENV SPARK_HOME="/opt/spark"
 
 # install SPARK
-ENV SPARK_VERSION=3.1.1
-ENV HADOOP_VERSION=3.2
+ARG SPARK_VERSION=3.1.1
+ARG HADOOP_VERSION=3.2
 
 RUN apt-get update && \
     curl -OJ https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz \

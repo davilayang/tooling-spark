@@ -3,6 +3,9 @@ x-spark-common:
   &spark-common
   build: 
     context: ./spark_image 
+    args:
+      SPARK_VERSION: 3.1.1
+      HADOOP_VERSION: 3.2
   entrypoint: ["/bin/bash", "/app/start-cluster.sh"]
   environment:
     &spark-common-env
@@ -14,6 +17,8 @@ services:
   jupyter-server: 
     build: 
       context: ./jupyter_image
+      args:
+        SPARK_VERSION: 3.1.1
     stdin_open: true # docker run -i
     tty: true        # docker run -t
     volumes:

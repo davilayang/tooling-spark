@@ -14,6 +14,9 @@ services:
       context: ./jupyter_image
     stdin_open: true # docker run -i
     tty: true        # docker run -t
+    volumes:
+      - ./notebooks:/app/notebooks
+      - ./data:/app/data
     ports: 
       - target: 8888  #container
         published: 8888  #host
@@ -22,11 +25,11 @@ services:
   spark-master:
     <<: *spark-common
     ports:
-      - target: 8080 # web UI
+      - target: 8080 #web UI
         published: 8080
         protocol: tcp
         mode: host
-      - target: 7077 # master port
+      - target: 7077 #master port
         published: 7077
         protocol: tcp
         mode: host

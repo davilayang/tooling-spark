@@ -1,7 +1,5 @@
 # Tooling: Spark
 
-## Use Case
-
 + Start a Docker container with Spark
 + Start a SPARK cluster with single worker
 
@@ -12,6 +10,21 @@
 docker build . -t spark-dev
 ```
 
+## Start a SPARK cluster with single worker
+
+```bash
+# build the base image 
+docker build ./base_image -t tooling-spark-base:latest
+# build and start the cluster
+docker-compose up --build 
+# stop the cluster
+docker-compose down --volumes
+```
+
++ Jupyter Lab at http://localhost:8888, visit by `google-chrome --new-window --app=http://127.0.0.1:8888/lab`
++ Spark master UI at http://localhost:8080
++ Spark worker 1 UI at http://localhost:8081
+
 ### Jupyter Lab in Local mode
 
 ```bash
@@ -20,14 +33,13 @@ docker run -it --rm -p 8888:8888 -p 4040:4040 -v $(pwd):/app spark-dev /bin/bash
 ```
 
 + Spark UI at http://localhost:4040
-+ Jupyter Lab at http://localhost:8888
 
 ### Approach 1, `PYSPARK_DRIVER`
 
 (in SPARK container)
 
 ```bash
-export PYSPARK_DRIVER_PYTHON=jupyter
+export PYSPARK_DRIVER_PYTHON='jupyter'
 export PYSPARK_DRIVER_PYTHON_OPTS='lab --ip 0.0.0.0 --allow-root --no-browser'
 
 # start jupyter lab, default port 8888; copy the token as <token>

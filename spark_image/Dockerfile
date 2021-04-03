@@ -24,4 +24,3 @@ SHELL ["/bin/sh", "-c"]
 ENTRYPOINT ["start-cluster.sh"]
 CMD []
 
-# TODO: use ARG to pass the version from docker-compose.yml when build

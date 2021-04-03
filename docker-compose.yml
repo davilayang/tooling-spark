@@ -1,40 +1,69 @@
 version: '3'
 x-spark-common:
   &spark-common
-  build: . # from Dockerfile in directory
+  build: 
+    context: ./spark_image 
+    args:
+      &spark-common-version
+      SPARK_VERSION: 3.1.1
+      HADOOP_VERSION: 3.2
   entrypoint: ["/bin/bash", "/app/start-cluster.sh"]
   environment:
     &spark-common-env
     SPARK_HOME: /opt/spark
+x-spark-worker-common:
+  &spark-worker-common
+  <<: *spark-common  # inherited from "spark-common", but not if key existed
+  depends_on:
+    - spark-master
+  volumes:
+    - ./data:/app/data  # mock distributed files, mounted on jupyter & worker
+  environment:
+    &spark-worker-common-env
+    <<: *spark-common-env  # i.e. SPARK_HOME: /opt/spark
+    SPARK_WORKER_CORES: 1
+    SPARK_WORKER_MEMORY: 2G
+    SPARK_MASTER: spark://spark-master:7077  # refer to service "spark-master"
 
 services:
+  jupyter-server: 
+    build: 
+      context: ./jupyter_image
+      args:
+        <<: *spark-common-version  # i.e. SPARK_VERSION: 3.1.1
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    volumes:
+      - ./data:/app/data
+      - ./notebooks:/app/notebooks
+    ports: 
+      - target: 8888  # container
+        published: 8888  # host
+        protocol: tcp
+        mode: host
   spark-master:
     <<: *spark-common
     ports:
-      - target: 8088  #container
-        published: 8088  #host
-        protocol: tcp
-        mode: host
-      - target: 7077
-        published: 7077
-        protocol: tcp
-        mode: host
+      - 8080:8080 # host:container, web UI
+      - 7077:7011 # master port
     environment:
       <<: *spark-common-env
-      SPARK_TYPE: master # as the master in cluster
+      SPARK_TYPE: master # variable for script, as the master in cluster
       SPARK_MASTER_PORT: 7077
-      SPARK_MASTER_WEBUI_PORT: 8088
-      PYSPARK_DRIVER_PYTHON: ipython
+      SPARK_MASTER_WEBUI_PORT: 8080
   spark-worker-1:
-    <<: *spark-common
-    depends_on:
-      - spark-master
+    <<: *spark-worker-common
     ports:
-      - target: 8081
-        published: 8081
-        protocol: tcp
-        mode: host
+      - 8081:8081 # web UI
     environment:
-      <<: *spark-common-env
-      SPARK_MASTER: spark://spark-master:7077 # refers to service "spark-master"
+      <<: *spark-worker-common-env
       SPARK_WORKER_WEBUI_PORT: 8081
+  spark-worker-2:
+    <<: *spark-worker-common
+    ports:
+      - 8082:8082 # web UI
+    environment:
+      <<: *spark-worker-common-env
+      SPARK_WORKER_WEBUI_PORT: 8082
+
+# TODO: add probing for master to check its healthy

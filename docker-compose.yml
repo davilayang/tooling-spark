@@ -7,6 +7,8 @@ x-spark-common:
   environment:
     &spark-common-env
     SPARK_HOME: /opt/spark
+    SPARK_WORKER_CORES: 1
+    SPARK_WORKER_MEMORY: 512m
 
 services:
   jupyter-server: 

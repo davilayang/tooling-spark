@@ -7,8 +7,8 @@ x-spark-common:
   environment:
     &spark-common-env
     SPARK_HOME: /opt/spark
-    SPARK_WORKER_CORES: 1
-    SPARK_WORKER_MEMORY: 512m
+    SPARK_WORKER_CORES: 2
+    SPARK_WORKER_MEMORY: 4G
 
 services:
   jupyter-server: 
@@ -18,23 +18,17 @@ services:
     tty: true        # docker run -t
     volumes:
       - ./notebooks:/app/notebooks
-      - ./data:/app/data
+      - ./data:/app/data # also mount on workers
     ports: 
-      - target: 8888  #container
-        published: 8888  #host
+      - target: 8888  # container
+        published: 8888  # host
         protocol: tcp
         mode: host
   spark-master:
     <<: *spark-common
     ports:
-      - target: 8080 #web UI
-        published: 8080
-        protocol: tcp
-        mode: host
-      - target: 7077 #master port
-        published: 7077
-        protocol: tcp
-        mode: host
+      - 8080:8080 # host:container, web UI
+      - 7077:7011 # master port
     environment:
       <<: *spark-common-env
       SPARK_TYPE: master # variable for script, as the master in cluster
@@ -44,11 +38,10 @@ services:
     <<: *spark-common
     depends_on:
       - spark-master
+    volumes:
+      - ./data:/app/data # mock distributed files
     ports:
-      - target: 8081  # web UI
-        published: 8081
-        protocol: tcp
-        mode: host
+      - 8081:8081 # web UI
     environment:
       <<: *spark-common-env
       SPARK_MASTER: spark://spark-master:7077 # refers to service "spark-master"

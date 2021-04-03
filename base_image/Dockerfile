@@ -5,7 +5,7 @@ WORKDIR /app
 
 # install python, for Spark and Jupyter
 RUN apt-get update && apt-get install -y \
-    wget \
+    curl \
     python3.7 \
     && ln -s /usr/bin/python3.7 /usr/bin/python3 \
     && rm -rf /var/lib/apt/lists/*
@@ -21,3 +21,6 @@ ENV PYTHONHASHSEED 1
 SHELL ["/bin/sh", "-c"]
 ENTRYPOINT []
 CMD ["bash"]
+
+
+# docker build ./base_image -t tooling-spark-base:latest

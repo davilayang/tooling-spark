@@ -46,3 +46,5 @@ services:
       <<: *spark-common-env
       SPARK_MASTER: spark://spark-master:7077 # refers to service "spark-master"
       SPARK_WORKER_WEBUI_PORT: 8081
+
+# TODO: add another worker with 1 Core and 2G

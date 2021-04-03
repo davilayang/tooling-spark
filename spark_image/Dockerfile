@@ -8,7 +8,7 @@ ENV SPARK_VERSION=3.1.1
 ENV HADOOP_VERSION=3.2
 
 RUN apt-get update && \
-    wget https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz \
+    curl -OJ https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz \
     && tar -xvzf spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz \
     && mv spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION} ${SPARK_HOME} \
     && rm spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz \

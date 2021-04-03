@@ -1,6 +1,9 @@
 # My Files
 *.ttf
 *.zip
+data/*
+notebooks/*
+!notebooks/sample.ipynb
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

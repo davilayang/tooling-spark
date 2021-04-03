@@ -4,7 +4,8 @@ WORKDIR /app
 
 
 # installations
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && curl -fsSL https://deb.nodesource.com/setup_15.x | bash - \
+    && apt-get install -y \
     nodejs \
     python3-pip \
     && ln -s /usr/bin/pip3 /usr/bin/pip \
@@ -12,7 +13,8 @@ RUN apt-get update && apt-get install -y \
 
 # required
 RUN pip3 install --no-cache-dir \
-    "jupyterlab>=3.0.12,<4.0.0"
+    "jupyterlab>=3.0.12,<4.0.0" \
+    "pyspark==3.1.1"
 
 # optional
 COPY requirements.txt requirements.txt 

@@ -2,7 +2,7 @@ version: '3'
 x-spark-common:
   &spark-common
   build: 
-    context: ./spark_image 
+    context: ./image_spark 
     args:
       &spark-common-version
       SPARK_VERSION: 3.1.1
@@ -28,7 +28,7 @@ x-spark-worker-common:
 services:
   jupyter-server: 
     build: 
-      context: ./jupyter_image
+      context: ./image_jupyter
       args:
         <<: *spark-common-version  # i.e. SPARK_VERSION: 3.1.1
     stdin_open: true # docker run -i

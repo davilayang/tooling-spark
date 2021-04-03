@@ -39,6 +39,6 @@ CMD ["--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root", "--NotebookA
 
 # TODO: another way to connect to cluster without pip install pyspark?
 
-# docker build jupyter_image/. -t local-jupyter
-# docker run -it --rm -p 8888:8888 -v $(pwd)/notebooks:/app local-jupyter
+# docker build image_jupyter/. -t local-spark-jupyter
+# docker run -it --rm -p 8888:8888 -v $(pwd)/notebooks:/app local-spark-jupyter
 # chrome --new-window --app=http://127.0.0.1:8888/lab

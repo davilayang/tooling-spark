@@ -7,9 +7,9 @@
 
 ```bash
 # build the image
-docker build ./jupyter_image -t tooling-spark_jupyter-server
+docker build ./image_jupyter -t local-spark-jupyter
 # start the jupyter container
-docker run -it --rm -p 8888:8888 -v $(pwd)/notebooks:/app/notebooks tooling-spark_jupyter-server
+docker run -it --rm -p 8888:8888 -v $(pwd)/notebooks:/app/notebooks local-spark-jupyter
 ```
 
 + Jupyter Lab at http://localhost:8888, visit by `google-chrome --new-window --app=http://127.0.0.1:8888/lab`
@@ -20,9 +20,10 @@ docker run -it --rm -p 8888:8888 -v $(pwd)/notebooks:/app/notebooks tooling-spar
 
 ```bash
 # build the base image 
-docker build ./base_image -t tooling-spark-base:latest
+docker build ./image_base -t tooling-spark-base:latest
 # build and start the cluster
 docker-compose up --build 
+
 # stop the cluster
 docker-compose down --volumes
 ```

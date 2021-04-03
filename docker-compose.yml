@@ -45,7 +45,8 @@ services:
     <<: *spark-common
     ports:
       - 8080:8080 # host:container, web UI
-      - 7077:7011 # master port
+    expose: 
+      - 7077 # master port
     environment:
       <<: *spark-common-env
       SPARK_TYPE: master # variable for script, as the master in cluster

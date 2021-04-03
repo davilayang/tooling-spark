@@ -7,6 +7,7 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y \
     wget \
     python3.7 \
+    && ln -s /usr/bin/python3.7 /usr/bin/python3 \
     && rm -rf /var/lib/apt/lists/*
 
 # config the container

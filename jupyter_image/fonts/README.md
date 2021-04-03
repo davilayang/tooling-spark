@@ -1,5 +1,7 @@
 # Fonts
 
+Fonts should be installed on the host machine to be used by Chrome, not in Docker container.  
+
 ## Fira Code Retina
 
 > [tonsky/FiraCode](https://github.com/tonsky/FiraCode)

@@ -3,7 +3,7 @@ FROM tooling-spark-base:latest
 WORKDIR /app
 
 
-# install python
+# installations
 RUN apt-get update && apt-get install -y \
     nodejs \
     python3-pip \
@@ -11,11 +11,11 @@ RUN apt-get update && apt-get install -y \
     && ln -s /usr/bin/pip3 /usr/bin/pip \
     && rm -rf /var/lib/apt/lists/*
 
-# install Python dependencies
+# required
 RUN pip3 install --no-cache-dir \
     "jupyterlab>=3.0.12,<4.0.0"
 
-# install optional Python dependencies from requirements.txt
+# optional
 COPY requirements.txt requirements.txt 
 RUN pip3 install --no-cache-dir --requirement "requirements.txt"
 
@@ -26,11 +26,14 @@ COPY ./theme-dark-extension/index-dracula.css \
 COPY ./theme-light-extension/index.css \
     /usr/local/share/jupyter/lab/themes/@jupyterlab/theme-light-extension/index.css
 
+
+# finalizations
 EXPOSE 8888
 
 SHELL ["/bin/bash"]
 ENTRYPOINT ["jupyter", "lab"]
 CMD ["--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root", "--NotebookApp.token="]
+
 
 # TODO: another way to connect to cluster without pip install pyspark?
 

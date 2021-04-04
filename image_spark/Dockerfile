@@ -1,4 +1,4 @@
-FROM tooling-spark-base:latest
+FROM tooling-spark_base:latest
 # from local built image
 
 ENV SPARK_HOME="/opt/spark"

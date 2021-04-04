@@ -23,4 +23,4 @@ ENTRYPOINT []
 CMD ["bash"]
 
 
-# docker build ./image_base -t tooling-spark-base:latest
+# docker build ./image_base -t tooling-spark_base:latest

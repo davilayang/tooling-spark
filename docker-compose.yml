@@ -15,6 +15,7 @@ x-spark-worker-common:
   &spark-worker-common
   <<: *spark-common  # inherited from "spark-common", but not if key existed
   depends_on:
+    - base
     - spark-master
   volumes:
     - ./data:/app/data  # mock distributed files, mounted on jupyter & worker
@@ -26,11 +27,17 @@ x-spark-worker-common:
     SPARK_MASTER: spark://spark-master:7077  # refer to service "spark-master"
 
 services:
+  base:
+    build: 
+      context: ./image_base
+    command: ["echo", "base image for spark cluster built"]
   jupyter-server: 
     build: 
       context: ./image_jupyter
       args:
         <<: *spark-common-version  # i.e. SPARK_VERSION: 3.1.1
+    depends_on: 
+      - base
     stdin_open: true # docker run -i
     tty: true        # docker run -t
     volumes:
@@ -43,6 +50,8 @@ services:
         mode: host
   spark-master:
     <<: *spark-common
+    depends_on: 
+      - base
     ports:
       - 8080:8080 # host:container, web UI
     expose: 

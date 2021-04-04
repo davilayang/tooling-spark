@@ -28,7 +28,15 @@ docker-compose up --build
 docker-compose down --volumes
 ```
 
-+ Jupyter Lab at http://localhost:8888, visit by `google-chrome --new-window --app=http://127.0.0.1:8888/lab`
+(in host terminal)  
+
+```bash
+# start without address bar
+google-chrome --new-window --app=http://localhost:8888/lab
+google-chrome --incognito --app=http://localhost:8888/lab
+```
+
++ Jupyter Lab at http://localhost:8888
 + Spark master UI at http://localhost:8080
 + Spark worker 1 UI at http://localhost:8081
 

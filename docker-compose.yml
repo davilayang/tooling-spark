@@ -35,7 +35,7 @@ services:
     build: 
       context: ./image_jupyter
       args:
-        <<: *spark-common-version  # i.e. SPARK_VERSION: 3.1.1
+        <<: *spark-common-version  # i.e. match Pyspark version with Spark
     depends_on: 
       - base
     stdin_open: true # docker run -i

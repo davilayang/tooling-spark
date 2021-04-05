@@ -1,26 +1,20 @@
 # Tooling: Spark
 
 + Start a Docker container with Spark
-+ Start a SPARK cluster with single worker
++ Start a SPARK cluster with two workers
 
 ## Start a Docker container with Spark
 
 ```bash
-# build the image
-docker build ./image_jupyter -t local-spark-jupyter
+# build the image with Pyspark==3.1.1
+docker build -t local-spark-jupyter --build-arg SPARK_VERSION=3.1.1 ./image_jupyter
 # start the jupyter container
 docker run -it --rm -p 8888:8888 -v $(pwd)/notebooks:/app/notebooks local-spark-jupyter
 ```
 
-+ Jupyter Lab at http://localhost:8888, visit by `google-chrome --new-window --app=http://127.0.0.1:8888/lab`
-
-## Start a SPARK standalone cluster with single worker
-
-> N.B. Spark and Pyspark version should match
+## Start a SPARK standalone cluster with two workers
 
 ```bash
-# build the base image 
-docker build ./image_base -t tooling-spark-base:latest
 # build and start the cluster
 docker-compose up --build 
 
@@ -28,7 +22,7 @@ docker-compose up --build
 docker-compose down --volumes
 ```
 
-(in host terminal)  
+## Access the services
 
 ```bash
 # start without address bar
@@ -39,6 +33,7 @@ google-chrome --incognito --app=http://localhost:8888/lab
 + Jupyter Lab at http://localhost:8888
 + Spark master UI at http://localhost:8080
 + Spark worker 1 UI at http://localhost:8081
++ Spark worker 2 UI at http://localhost:8082
 
 ## References
 

@@ -36,6 +36,8 @@ services:
       context: ./image_jupyter
       args:
         <<: *spark-common-version  # i.e. match Pyspark version with Spark
+        USER_UID: 1000
+        USER_NAME: $USER # current user on host
     depends_on: 
       - base
     stdin_open: true # docker run -i

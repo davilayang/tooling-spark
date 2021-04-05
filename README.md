@@ -7,7 +7,11 @@
 
 ```bash
 # build the image with Pyspark==3.1.1
-docker build -t tooling-spark_jupyter-server --build-arg SPARK_VERSION=3.1.1 ./image_jupyter
+docker build -t tooling-spark_jupyter-server \
+    --build-arg USER_UID=$(id --user $USER) \
+    --build-arg USER_NAME=$USER \
+    --build-arg SPARK_VERSION=3.1.1 \
+    ./image_jupyter
 # start the jupyter container
 docker run -it --rm -p 8888:8888 \
     -v $(pwd)/notebooks:/app/notebooks \

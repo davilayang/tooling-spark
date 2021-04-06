@@ -35,6 +35,9 @@ COPY ./theme-dark-extension/index-dracula.css \
 COPY ./theme-light-extension/index.css \
     /home/${USER_NAME}/.local/share/jupyter/lab/themes/@jupyterlab/theme-light-extension/index.css
 
+RUN echo "PS1='\[\e[0;37m\][\w]\\\n\[\e[1;35m\]\u\[\e[1;34m\]@🐳\[\e[1;36m\]\h\[\e[1;34m\] ❯ \[\e[0m\]'" \
+    >> /home/${USER_NAME}/.bashrc
+
 # finalizations
 EXPOSE 8888
 

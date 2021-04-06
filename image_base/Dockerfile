@@ -10,8 +10,9 @@ RUN apt-get update && apt-get install -y \
     && ln -s /usr/bin/python3.7 /usr/bin/python3 \
     && rm -rf /var/lib/apt/lists/*
 
-# config the container
-RUN echo "PS1='\[\033[0;37m\][\w]\n\[\e[1;35m\]\u\[\033[1;34m\]@🐳\[\033[1;36m\]\h\[\033[1;34m\] ❯ \[\033[0m\]'" >> ~/.bashrc &&\
+# config the container (escape \n with \\\n)
+RUN echo "PS1='\[\e[0;37m\][\w]\\\n\[\e[0;35m\]\u\[\e[1;34m\]@🐳\[\e[1;36m\]\h\[\e[1;34m\] ❯ \[\e[0m\]'" \
+    >> /etc/bash.bashrc && \
     echo "set bell-style none" >> /etc/inputrc
 
 # Fix the value of PYTHONHASHSEED

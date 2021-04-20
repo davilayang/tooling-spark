@@ -14,14 +14,15 @@ ARG USER_UID
 ARG USER_NAME
 ARG SPARK_VERSION
 
-RUN useradd --create-home --shell /bin/bash --uid 1000 ${USER_NAME}
+RUN useradd --create-home --shell /bin/bash --uid ${USER_UID} ${USER_NAME}
 
 USER ${USER_NAME}
 
 ENV PATH="/home/${USER_NAME}/.local/bin:${PATH}"
 
 # required
-RUN pip3 install --user --no-cache-dir \
+RUN pip3 install --user --no-cache-dir --upgrade \
+    "setuptools" \
     "jupyterlab>=3.0.12,<4.0.0" \
     "pyspark==${SPARK_VERSION}"
 

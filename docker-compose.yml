@@ -22,7 +22,7 @@ x-spark-worker-common:
   environment:
     &spark-worker-common-env
     <<: *spark-common-env  # i.e. SPARK_HOME: /opt/spark
-    SPARK_WORKER_CORES: 1
+    SPARK_WORKER_CORES: 2
     SPARK_WORKER_MEMORY: 2G
     SPARK_MASTER: spark://spark-master:7077  # refer to service "spark-master"
 
@@ -50,12 +50,13 @@ services:
         published: 8888  # host
         protocol: tcp
         mode: host
+      - 4040:4040 # web UI (started by a SparkContext, can be 4041,4042...)
   spark-master:
     <<: *spark-common
     depends_on: 
       - base
     ports:
-      - 8080:8080 # host:container, web UI
+      - 8080:8080 # host:container, web UI for master process
     expose: 
       - 7077 # master port
     environment:
@@ -66,14 +67,14 @@ services:
   spark-worker-1:
     <<: *spark-worker-common
     ports:
-      - 8081:8081 # web UI
+      - 8081:8081 # worker1
     environment:
       <<: *spark-worker-common-env
       SPARK_WORKER_WEBUI_PORT: 8081
   spark-worker-2:
     <<: *spark-worker-common
     ports:
-      - 8082:8082 # web UI
+      - 8082:8082 # worker2
     environment:
       <<: *spark-worker-common-env
       SPARK_WORKER_WEBUI_PORT: 8082

@@ -17,7 +17,7 @@ RUN apt-get update && \
 # copy entrypoing script
 COPY start-cluster.sh start-cluster.sh
 
-ENV PATH="${SPARK_HOME}}/bin:${PATH}"
+ENV PATH="${SPARK_HOME}/bin:${PATH}"
 ENV PYSPARK_DRIVER_PYTHON=python3
 
 SHELL ["/bin/sh", "-c"]

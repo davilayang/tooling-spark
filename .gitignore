@@ -4,6 +4,8 @@
 data/*
 notebooks/*
 !notebooks/sample.ipynb
+jobs/*
+!jobs/sample.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

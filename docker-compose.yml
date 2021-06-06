@@ -19,6 +19,7 @@ x-spark-worker-common:
     - spark-master
   volumes:
     - ./data:/app/data  # mock distributed files, mounted on jupyter & worker
+    - ./jobs:/app/jobs
   environment:
     &spark-worker-common-env
     <<: *spark-common-env  # i.e. SPARK_HOME: /opt/spark
@@ -45,6 +46,7 @@ services:
     volumes:
       - ./data:/app/data
       - ./notebooks:/app/notebooks
+      - ./jobs:/app/jobs
     ports: 
       - target: 8888  # container
         published: 8888  # host
@@ -55,6 +57,8 @@ services:
     <<: *spark-common
     depends_on: 
       - base
+    volumes:
+      - ./jobs:/app/jobs
     ports:
       - 8080:8080 # host:container, web UI for master process
     expose: 

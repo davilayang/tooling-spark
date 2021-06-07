@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y \
     openjdk-11-jdk-headless \
     && rm -rf /var/lib/apt/lists/*
 
-# config the container (escape \n with \\\n)
+# config prompt for root (escape \n with \\\n)
 RUN echo "PS1='\[\e[0;37m\][\w]\\\n\[\e[0;35m\]\u\[\e[1;34m\]@🐳\[\e[1;36m\]\h\[\e[1;34m\] ❯ \[\e[0m\]'" \
     >> /etc/bash.bashrc && \
     echo "set bell-style none" >> /etc/inputrc

@@ -4,6 +4,10 @@ SHELL=/bin/bash
 build-base:
 	docker build ./image_base -t spark_base:latest	
 
+# build the venv for Python dependencies
+build-venv: 
+	
+
 # build the cluster
 build: build-base
 	docker-compose build 

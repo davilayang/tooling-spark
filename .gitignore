@@ -6,6 +6,7 @@ mounted_dirs/notebooks/*
 !mounted_dirs/notebooks/sample.ipynb
 mounted_dirs/jobs/*
 !mounted_dirs/jobs/sample.py
+pyspark_venv/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -18,8 +18,8 @@ x-spark-worker-common:
     - base
     - spark-master
   volumes:
-    - ./data:/app/data  # mock distributed files, mounted on jupyter & worker
-    - ./jobs:/app/jobs
+    - ./mounted_dirs/data:/app/data  # mock distributed files, mounted on jupyter & worker
+    - ./mounted_dirs/jobs:/app/jobs
   environment:
     &spark-worker-common-env
     <<: *spark-common-env  # i.e. SPARK_HOME: /opt/spark
@@ -44,9 +44,9 @@ services:
     stdin_open: true # docker run -i
     tty: true        # docker run -t
     volumes:
-      - ./data:/app/data
-      - ./notebooks:/app/notebooks
-      - ./jobs:/app/jobs
+      - ./mounted_dirs/data:/app/data
+      - ./mounted_dirs/notebooks:/app/notebooks
+      - ./mounted_dirs/jobs:/app/jobs
     ports: 
       - target: 8888  # container
         published: 8888  # host
@@ -58,7 +58,7 @@ services:
     depends_on: 
       - base
     volumes:
-      - ./jobs:/app/jobs
+      - ./mounted_dirs/jobs:/app/jobs
     ports:
       - 8080:8080 # host:container, web UI for master process
     expose: 

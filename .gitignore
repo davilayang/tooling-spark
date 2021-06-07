@@ -1,11 +1,11 @@
 # My Files
 *.ttf
 *.zip
-data/*
-notebooks/*
-!notebooks/sample.ipynb
-jobs/*
-!jobs/sample.py
+mounted_dirs/data/*
+mounted_dirs/notebooks/*
+!mounted_dirs/notebooks/sample.ipynb
+mounted_dirs/jobs/*
+!mounted_dirs/jobs/sample.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

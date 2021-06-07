@@ -1,13 +1,12 @@
-FROM openjdk:11-jre-slim-buster
-# using JDK runtime image
+FROM python:3.8.10-buster
 
 WORKDIR /app
 
 # install python, for Spark and Jupyter
 RUN apt-get update && apt-get install -y \
     curl \
-    python3.7 \
-    && ln -s /usr/bin/python3.7 /usr/bin/python3 \
+    vim \
+    openjdk-11-jdk-headless \
     && rm -rf /var/lib/apt/lists/*
 
 # config the container (escape \n with \\\n)
@@ -24,4 +23,4 @@ ENTRYPOINT []
 CMD ["bash"]
 
 
-# docker build ./image_base -t tooling-spark_base:latest
+# docker build ./image_base -t spark_base:latest

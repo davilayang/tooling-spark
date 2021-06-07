@@ -19,7 +19,7 @@ USER ${USER_NAME}
 ENV PATH="/home/${USER_NAME}/.local/bin:${PATH}"
 
 # required Python packages 
-RUN pip3 install --user --no-cache-dir --upgrade \
+RUN pip install --user --no-cache-dir --upgrade \
     "jupyterlab>=3.0.12,<4.0.0" \
     "jupyterlab-vim>=0.14.2,<1.0.0" \
     "pyspark==${SPARK_VERSION}"

@@ -28,17 +28,19 @@ x-spark-worker-common:
     SPARK_MASTER: spark://spark-master:7077  # refer to service "spark-master"
 
 services:
+  # prepare base image
   base:
     build: 
       context: ./image_base
-    command: ["echo", "base image for spark cluster built"]
+    command: ["echo", "...build base image for Spark clsuter..."]
+  # start a container of Jupyter server
   jupyter-server: 
     build: 
       context: ./image_jupyter
       args:
         <<: *spark-common-version  # i.e. match Pyspark version with Spark
         USER_UID: 1000
-        USER_NAME: $USER # current user on host
+        USER_NAME: $USER # current user on host machine
     depends_on: 
       - base
     stdin_open: true # docker run -i
@@ -53,6 +55,7 @@ services:
         protocol: tcp
         mode: host
       - 4040:4040 # web UI (started by a SparkContext, can be 4041,4042...)
+  # start a container for cluster master node
   spark-master:
     <<: *spark-common
     depends_on: 
@@ -68,6 +71,7 @@ services:
       SPARK_TYPE: master # variable for script, as the master in cluster
       SPARK_MASTER_PORT: 7077
       SPARK_MASTER_WEBUI_PORT: 8080
+  # start a container for cluster worker node
   spark-worker-1:
     <<: *spark-worker-common
     ports:
@@ -75,6 +79,7 @@ services:
     environment:
       <<: *spark-worker-common-env
       SPARK_WORKER_WEBUI_PORT: 8081
+  # start a container for cluster worker node
   spark-worker-2:
     <<: *spark-worker-common
     ports:

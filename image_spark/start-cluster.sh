@@ -6,7 +6,7 @@
 
 # start master
 if [[ $SPARK_TYPE == "master" ]]; then
-    echo "starting master instance"
+    echo "...starting master node..."
 
     export SPARK_MASTER_HOST=$HOSTNAME
     ln -sf /dev/stdout $SPARK_HOME/spark-master.out
@@ -19,7 +19,7 @@ if [[ $SPARK_TYPE == "master" ]]; then
 
 # start worker
 else
-    echo "starting worker instance"
+    echo "...starting worker node..."
 
     ln -sf /dev/stdout $SPARK_HOME/spark-worker.out
 

@@ -1,18 +1,29 @@
-# /bin/bash
+SHELL=/bin/bash
+
+# build base image
+build-base:
+	docker build ./image_base -t spark_base:latest	
 
 # build the cluster
-build: 
+build: build-base
 	docker-compose build 
 
 # start the spark cluster (also build)
-start: 
-	docker-compose up --build
+start:
+	docker-compose up
+
+restart: start
 
 # start the spark cluster in detached mode
 start-detach: 
-	docker-compose up --build --detach
+	docker-compose up --detach
 
-# stop the spark cluster and remove all created volumes
+restart-detach: start-detach 
+
+# stop the spark cluster 
 stop: 
-	docker-compose down --volumes
+	docker-compose stop
 
+# stop the Spark cluster and remove all volumes
+down: 
+	docker-compose down --volumes

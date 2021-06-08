@@ -2,9 +2,9 @@
 
 Start a Spark cluster in Standalone mode with Jupyter server
 
-## Basic Usage
+## Basic Usage (Spark cluster in Standalone mode)
 
-1. Build the containers
+1. Build the containers and create virtual environment from `requirements.txt`
     + `make build`
 2. Start the Spark cluster and Jupyter server
     + `make start`

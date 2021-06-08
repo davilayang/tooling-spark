@@ -7,8 +7,8 @@ build-base:
 # build the venv for Python dependencies
 build-venv: 
 	python -m venv pyspark_venv
-	pyspark_venv/bin/pip install -r requirements.txt
-	pyspark_venv/bin/venv-pack --force -p pyspark_venv/ -o mounted_dirs/jobs/pyspark_venv.tar.gz
+	./pyspark_venv/bin/pip install -r requirements.txt
+	./pyspark_venv/bin/venv-pack --force -p ./pyspark_venv/ -o ./mounted_dirs/jobs/pyspark_venv.tar.gz
 
 # copy requirements.txt for jupyter server
 copy-req:
@@ -18,7 +18,7 @@ copy-req:
 build: build-base build-venv copy-req
 	docker-compose build 
 
-# start the spark cluster (also build)
+# start the spark cluster 
 start:
 	docker-compose up
 

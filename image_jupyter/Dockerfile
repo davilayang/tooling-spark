@@ -24,6 +24,10 @@ RUN pip install --user --no-cache-dir --upgrade \
     "jupyterlab-vim>=0.14.2,<1.0.0" \
     "pyspark==${SPARK_VERSION}"
 
+# additional Python packages
+COPY requirements.txt requirements.txt
+RUN pip install --user --no-cache-dir -r requirements.txt
+
 # config jupyter theme, theme: dracula or monokai
 COPY ./theme-dark-extension/index-dracula.css \
     /home/${USER_NAME}/.local/share/jupyter/lab/themes/@jupyterlab/theme-dark-extension/index.css

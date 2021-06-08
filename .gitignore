@@ -3,7 +3,7 @@
 *.zip
 mounted_dirs/data/*
 mounted_dirs/notebooks/*
-!mounted_dirs/notebooks/sample.ipynb
+!mounted_dirs/notebooks/0-sample.ipynb
 mounted_dirs/jobs/*
 !mounted_dirs/jobs/sample.py
 pyspark_venv/

@@ -9,6 +9,7 @@ build-venv:
 	python -m venv pyspark_venv
 	./pyspark_venv/bin/pip install -r requirements.txt
 	./pyspark_venv/bin/venv-pack --force -p ./pyspark_venv/ -o ./mounted_dirs/jobs/pyspark_venv.tar.gz
+	rm -fr pyspark_venv/
 
 # copy requirements.txt for jupyter server
 copy-req:

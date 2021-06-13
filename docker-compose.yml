@@ -3,6 +3,8 @@ x-spark-common:
   &spark-common
   build: 
     context: ./image_spark 
+    labels:
+      cluster: spark
     args:
       &spark-common-version
       SPARK_VERSION: 3.1.1
@@ -18,8 +20,8 @@ x-spark-worker-common:
     - base
     - spark-master
   volumes:
-    - ./data:/app/data  # mock distributed files, mounted on jupyter & worker
-    - ./jobs:/app/jobs
+    - ./mounted_dirs/data:/app/data  # mock distributed files, mounted on jupyter & worker
+    - ./mounted_dirs/jobs:/app/jobs
   environment:
     &spark-worker-common-env
     <<: *spark-common-env  # i.e. SPARK_HOME: /opt/spark
@@ -28,37 +30,44 @@ x-spark-worker-common:
     SPARK_MASTER: spark://spark-master:7077  # refer to service "spark-master"
 
 services:
+  # prepare base image
   base:
     build: 
       context: ./image_base
-    command: ["echo", "base image for spark cluster built"]
+      labels:
+        cluster: spark
+    command: ["echo", "...build base image for Spark clsuter..."]
+  # start a container of Jupyter server
   jupyter-server: 
     build: 
       context: ./image_jupyter
+      labels:
+        cluster: spark
       args:
         <<: *spark-common-version  # i.e. match Pyspark version with Spark
         USER_UID: 1000
-        USER_NAME: $USER # current user on host
+        USER_NAME: $USER # current user on host machine
     depends_on: 
       - base
     stdin_open: true # docker run -i
     tty: true        # docker run -t
     volumes:
-      - ./data:/app/data
-      - ./notebooks:/app/notebooks
-      - ./jobs:/app/jobs
+      - ./mounted_dirs/data:/app/data
+      - ./mounted_dirs/notebooks:/app/notebooks
+      - ./mounted_dirs/jobs:/app/jobs
     ports: 
       - target: 8888  # container
         published: 8888  # host
         protocol: tcp
         mode: host
       - 4040:4040 # web UI (started by a SparkContext, can be 4041,4042...)
+  # start a container for cluster master node
   spark-master:
     <<: *spark-common
     depends_on: 
       - base
     volumes:
-      - ./jobs:/app/jobs
+      - ./mounted_dirs/jobs:/app/jobs
     ports:
       - 8080:8080 # host:container, web UI for master process
     expose: 
@@ -68,6 +77,7 @@ services:
       SPARK_TYPE: master # variable for script, as the master in cluster
       SPARK_MASTER_PORT: 7077
       SPARK_MASTER_WEBUI_PORT: 8080
+  # start a container for cluster worker node
   spark-worker-1:
     <<: *spark-worker-common
     ports:
@@ -75,6 +85,7 @@ services:
     environment:
       <<: *spark-worker-common-env
       SPARK_WORKER_WEBUI_PORT: 8081
+  # start a container for cluster worker node
   spark-worker-2:
     <<: *spark-worker-common
     ports:

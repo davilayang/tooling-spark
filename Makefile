@@ -14,7 +14,6 @@ build-venv:
 # copy requirements.txt for jupyter server
 copy-req:
 	cp ./requirements.txt ./image_jupyter/requirements.txt
-	cp ./requirements.txt ./image_spark/requirements.txt
 
 # build the cluster
 build: build-base build-venv copy-req

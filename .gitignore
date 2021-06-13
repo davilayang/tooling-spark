@@ -9,6 +9,10 @@ mounted_dirs/jobs/*
 pyspark_venv/
 .vscode/
 
+## Copied requirements.txt
+image_jupyter/requirements.txt
+image_spark/requirements.txt
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

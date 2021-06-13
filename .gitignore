@@ -7,6 +7,7 @@ mounted_dirs/notebooks/*
 mounted_dirs/jobs/*
 !mounted_dirs/jobs/sample.py
 pyspark_venv/
+.vscode/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -38,7 +38,9 @@ stop:
 # stop the Spark cluster and remove all volumes and containers
 down: 
 	docker-compose down --volumes
-	docker container rm $(docker ps --all --quiet --filter lables=cluster=spark)
+
+remove-containers:
+	docker container rm $(docker ps --all --quiet --filter label=cluster=spark)
 
 remove-images: 
 	docker rmi $(docker images --quiet --filter "label=cluster=spark")

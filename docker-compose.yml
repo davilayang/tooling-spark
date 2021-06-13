@@ -3,6 +3,8 @@ x-spark-common:
   &spark-common
   build: 
     context: ./image_spark 
+    labels:
+      cluster: spark
     args:
       &spark-common-version
       SPARK_VERSION: 3.1.1
@@ -32,11 +34,15 @@ services:
   base:
     build: 
       context: ./image_base
+      labels:
+        cluster: spark
     command: ["echo", "...build base image for Spark clsuter..."]
   # start a container of Jupyter server
   jupyter-server: 
     build: 
       context: ./image_jupyter
+      labels:
+        cluster: spark
       args:
         <<: *spark-common-version  # i.e. match Pyspark version with Spark
         USER_UID: 1000

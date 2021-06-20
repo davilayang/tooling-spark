@@ -1,11 +1,14 @@
-FROM spark_base:latest
+FROM python:3.8.10-buster
 
 WORKDIR /app
 
 # installations
 RUN apt-get update && curl -fsSL https://deb.nodesource.com/setup_15.x | bash - \
     && apt-get install -y \
+    curl \
+    vim \
     nodejs \
+    openjdk-11-jdk-headless \
     && rm -rf /var/lib/apt/lists/*
 
 ARG USER_UID

@@ -1,1 +1,4 @@
+.vscode
+mounted_dirs/data/*
+mounted_dirs/*/.ipynb_checkpoints
 README.md

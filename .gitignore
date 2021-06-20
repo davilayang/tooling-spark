@@ -11,7 +11,7 @@ pyspark_venv/
 
 ## Copied requirements.txt
 image_jupyter/requirements.txt
-image_spark/requirements.txt
+image_worker/requirements.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

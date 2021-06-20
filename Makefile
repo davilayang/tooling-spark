@@ -1,9 +1,5 @@
 SHELL=/bin/bash
 
-# build base image
-build-base:
-	docker build ./image_base -t spark_base:latest	
-
 # build the venv for Python dependencies
 build-venv: 
 	python -m venv --copies pyspark_venv
@@ -16,7 +12,7 @@ copy-req:
 	cp ./requirements.txt ./image_jupyter/requirements.txt
 
 # build the cluster
-build: build-base build-venv copy-req
+build: build-venv copy-req
 	docker-compose build 
 
 # start the spark cluster 

@@ -7,6 +7,10 @@ FROM spark_base:latest
 # Copy entrypoing script
 COPY start-worker.sh start-worker.sh
 
+# prepare worker dependencies
+# COPY requirements.txt requirements.txt
+# RUN pip install -r requirements.txt
+
 # Set up entrypoint and bash
 SHELL ["/bin/sh", "-c"]
 ENTRYPOINT ["start-worker.sh"]

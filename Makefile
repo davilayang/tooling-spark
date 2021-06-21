@@ -10,6 +10,7 @@ build-venv:
 # copy requirements.txt for jupyter server
 copy-req:
 	cp ./requirements.txt ./image_jupyter/requirements.txt
+	cp ./requirements.txt ./image_worker/requirements.txt
 
 # build the cluster
 build: build-venv copy-req
@@ -34,6 +35,9 @@ stop:
 # stop the Spark cluster and remove all volumes and containers
 down: 
 	docker-compose down --volumes
+
+clean: 
+	find . -type d -name .ipynb_checkpoints -exec rm -fr {} \;
 
 remove-containers:
 	docker container rm $(docker ps --all --quiet --filter label=cluster=spark)

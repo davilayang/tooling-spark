@@ -75,6 +75,7 @@ services:
       - ./mounted_dirs/jobs:/app/jobs
     ports:
       - 8080:8080 # host:container, web UI for master process
+      - 7077:7077 # expose master port, spark://localhost:7077 to submit a job from host machine
     expose: 
       - 7077 # master port
     entrypoint: ["/bin/bash", "/app/start-master.sh"]

@@ -17,7 +17,11 @@ copy-req:
 	cp ./requirements.txt ./image_spark/requirements.txt
 
 # build the cluster
-build: build-base build-venv copy-req
+# build: build-base build-venv copy-req
+# 	docker-compose build 
+# comment out build-venv for running by installing Python dependencies 
+
+build: build-base copy-req
 	docker-compose build 
 
 # start the spark cluster 

@@ -14,6 +14,19 @@ Start a Spark cluster in Standalone mode with Jupyter server
 4. Stop the cluster and remove all created volumes
     + `make down`
 
+### Submit a PySpark job
+
+> submit from host machine, master port is 7077
+
+```bash
+spark-submit --master spark://localhost:7077 <pyspark-job-file>
+```
+
+### Submit a Spark job
+
+```bash
+```
+
 ## Start a Spark cluster in Local mode 
 
 Build the image

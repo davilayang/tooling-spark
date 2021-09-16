@@ -70,8 +70,9 @@ services:
       - ./mounted_dirs/jobs:/app/jobs
     ports:
       - 8080:8080 # host:container, web UI for master process
+      - 7077:7077 # exposed to submit job from host machine
     expose: 
-      - 7077 # master port
+      - 7077 # master port exposed to cluster machines
     environment:
       <<: *spark-common-env
       SPARK_TYPE: master # variable for script, as the master in cluster

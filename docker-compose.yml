@@ -7,7 +7,7 @@ x-spark-common:
       cluster: spark
     args:
       &spark-common-version
-      SPARK_VERSION: 3.1.1
+      SPARK_VERSION: 3.1.2
       HADOOP_VERSION: 3.2
   entrypoint: ["/bin/bash", "/app/start-cluster.sh"]
   environment:

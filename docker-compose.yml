@@ -68,6 +68,7 @@ services:
       - base
     volumes:
       - ./mounted_dirs/jobs:/app/jobs
+      - ./mounted_dirs/data:/app/data
     ports:
       - 8080:8080 # host:container, web UI for master process
       - 7077:7077 # exposed to submit job from host machine

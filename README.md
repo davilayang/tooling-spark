@@ -14,7 +14,7 @@ Start a Spark cluster in Standalone mode with Jupyter server
 4. Stop the cluster and remove all created volumes
     + `make down`
 
-### Submit a PySpark job
+### Submit a PySpark job from host machine
 
 > submit from host machine, master port is 7077
 
@@ -22,10 +22,22 @@ Start a Spark cluster in Standalone mode with Jupyter server
 spark-submit --master spark://localhost:7077 <pyspark-job-file>
 ```
 
-### Submit a Spark job
+### Submit a Spark job from host machine
 
 ```bash
+# build the JAR file
+sbt package
+# using PySpark spark-submit command
+conda activate pyspark
+# submit with additional files
+spark-submit --master spark://localhost:7077 \
+    --deploy-mode client \
+    --class <class> \
+    --files <absolute-path-to-some-file> \
+    <path-to-JAR>
 ```
+
+Note that the absolute path should be the same as the path to load uploaded files in applications
 
 ## Start a Spark cluster in Local mode 
 

@@ -95,5 +95,16 @@ services:
     environment:
       <<: *spark-worker-common-env
       SPARK_WORKER_WEBUI_PORT: 8082
+  postgres-db: 
+    image: postgres:9.6
+    environment: 
+      POSTGRES_USER: someUser
+      POSTGRES_PASSWORD: somePassword
+      POSTGRES_DB: someDB
+    volumes:
+      - database-data:/var/lib/postgresql/data/
+volumes: 
+  database-data:
+
 
 # TODO: add probing for master to check its healthy

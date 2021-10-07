@@ -9,6 +9,12 @@ mounted_dirs/jobs/*
 pyspark_venv/
 .vscode/
 
+# sbt 
+.metals/
+examples/*/.bsp/
+examples/*/project/
+examples/*/target/
+
 ## Copied requirements.txt
 image_jupyter/requirements.txt
 image_spark/requirements.txt

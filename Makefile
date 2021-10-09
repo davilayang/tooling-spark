@@ -38,3 +38,10 @@ remove-containers:
 
 remove-images: 
 	docker rmi $(docker images --quiet --filter "label=cluster=spark")
+
+clean: 
+	find mounted_dirs/ -type d -name ".ipynb_checkpoints" -exec rm -rf {} +
+	rm -fr mounted_dirs/jobs/pyspark_venv.tar.gz
+	rm image_jupyter/requirements.txt
+	rm pyspark_venv/requirements.txt
+	

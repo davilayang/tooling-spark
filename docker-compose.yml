@@ -37,7 +37,7 @@ services:
       labels:
         cluster: spark
     command: ["echo", "...build base image for Spark clsuter..."]
-  # start a container to build archive for Python dependencies
+  # prepare python archived dependencies to mounted directory
   pyspark-venv:
     depends_on: 
       - base
@@ -47,7 +47,8 @@ services:
         cluster: spark 
     volumes:
       - ./mounted_dirs/jobs:/app/jobs
-  # start a container of Jupyter server
+    command: ["cp", "/app/pyspark_venv.tar.gz", "/app/jobs/"]
+  # container of Jupyter server
   jupyter-server: 
     build: 
       context: ./image_jupyter
@@ -59,6 +60,7 @@ services:
         USER_NAME: $USER # current user on host machine
     depends_on: 
       - base
+      - pyspark-venv
     stdin_open: true # docker run -i
     tty: true        # docker run -t
     volumes:
@@ -71,7 +73,7 @@ services:
         protocol: tcp
         mode: host
       - 4040:4040 # web UI (started by a SparkContext, can be 4041,4042...)
-  # start a container for cluster master node
+  # container for cluster master node
   spark-master:
     <<: *spark-common
     depends_on: 
@@ -89,7 +91,7 @@ services:
       SPARK_TYPE: master # variable for script, as the master in cluster
       SPARK_MASTER_PORT: 7077
       SPARK_MASTER_WEBUI_PORT: 8080
-  # start a container for cluster worker node
+  # container for cluster worker node
   spark-worker-1:
     <<: *spark-worker-common
     ports:
@@ -97,7 +99,7 @@ services:
     environment:
       <<: *spark-worker-common-env
       SPARK_WORKER_WEBUI_PORT: 8081
-  # start a container for cluster worker node
+  # container for cluster worker node
   spark-worker-2:
     <<: *spark-worker-common
     ports:
@@ -105,7 +107,10 @@ services:
     environment:
       <<: *spark-worker-common-env
       SPARK_WORKER_WEBUI_PORT: 8082
+  # container for for database
   postgres-db: 
+    profiles:  # skip starting by default
+      - donotstart
     image: postgres:9.6
     environment: 
       POSTGRES_USER: someUser
@@ -115,6 +120,3 @@ services:
       - database-data:/var/lib/postgresql/data/
 volumes: 
   database-data:
-
-
-# TODO: add probing for master to check its healthy

@@ -6,12 +6,17 @@ mounted_dirs/notebooks/*
 !mounted_dirs/notebooks/0-sample.ipynb
 mounted_dirs/jobs/*
 !mounted_dirs/jobs/sample.py
-pyspark_venv/
 .vscode/
+
+# sbt 
+.metals/
+examples/*/.bsp/
+examples/*/project/
+examples/*/target/
 
 ## Copied requirements.txt
 image_jupyter/requirements.txt
-image_spark/requirements.txt
+pyspark_venv/requirements.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -1,4 +1,4 @@
-FROM spark_base:latest
+FROM local/spark-base:latest
 
 ENV SPARK_HOME="/opt/spark"
 
@@ -12,12 +12,6 @@ RUN apt-get update && \
     && mv spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION} ${SPARK_HOME} \
     && rm spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz \
     && mkdir ${SPARK_HOME}/logs
-
-COPY requirements.txt requirements.txt
-RUN pip install -r requirements.txt
-# TODO: 
-# 1. master node and worker node should use different Dockerfile, since master doesn't need Python dependencies
-# 2. use Python dependencies by --archives flag
 
 # copy entrypoing script
 COPY start-cluster.sh start-cluster.sh

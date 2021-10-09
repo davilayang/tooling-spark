@@ -7,7 +7,7 @@ x-spark-common:
       cluster: spark
     args:
       &spark-common-version
-      SPARK_VERSION: 3.1.1
+      SPARK_VERSION: 3.1.2
       HADOOP_VERSION: 3.2
   entrypoint: ["/bin/bash", "/app/start-cluster.sh"]
   environment:
@@ -32,12 +32,24 @@ x-spark-worker-common:
 services:
   # prepare base image
   base:
+    image: local/spark-base
     build: 
       context: ./image_base
       labels:
         cluster: spark
     command: ["echo", "...build base image for Spark clsuter..."]
-  # start a container of Jupyter server
+  # prepare python archived dependencies to mounted directory
+  pyspark-venv:
+    depends_on: 
+      - base
+    build: 
+      context: ./image_venv
+      labels:
+        cluster: spark 
+    volumes:
+      - ./mounted_dirs/jobs:/app/jobs
+    command: ["cp", "/app/pyspark_venv.tar.gz", "/app/jobs/"]
+  # container of Jupyter server
   jupyter-server: 
     build: 
       context: ./image_jupyter
@@ -49,6 +61,7 @@ services:
         USER_NAME: $USER # current user on host machine
     depends_on: 
       - base
+      - pyspark-venv
     stdin_open: true # docker run -i
     tty: true        # docker run -t
     volumes:
@@ -61,23 +74,25 @@ services:
         protocol: tcp
         mode: host
       - 4040:4040 # web UI (started by a SparkContext, can be 4041,4042...)
-  # start a container for cluster master node
+  # container for cluster master node
   spark-master:
     <<: *spark-common
     depends_on: 
       - base
     volumes:
       - ./mounted_dirs/jobs:/app/jobs
+      - ./mounted_dirs/data:/app/data
     ports:
       - 8080:8080 # host:container, web UI for master process
+      - 7077:7077 # exposed to submit job from host machine
     expose: 
-      - 7077 # master port
+      - 7077 # master port exposed to cluster machines
     environment:
       <<: *spark-common-env
       SPARK_TYPE: master # variable for script, as the master in cluster
       SPARK_MASTER_PORT: 7077
       SPARK_MASTER_WEBUI_PORT: 8080
-  # start a container for cluster worker node
+  # container for cluster worker node
   spark-worker-1:
     <<: *spark-worker-common
     ports:
@@ -85,7 +100,7 @@ services:
     environment:
       <<: *spark-worker-common-env
       SPARK_WORKER_WEBUI_PORT: 8081
-  # start a container for cluster worker node
+  # container for cluster worker node
   spark-worker-2:
     <<: *spark-worker-common
     ports:
@@ -93,5 +108,16 @@ services:
     environment:
       <<: *spark-worker-common-env
       SPARK_WORKER_WEBUI_PORT: 8082
-
-# TODO: add probing for master to check its healthy
+  # container for for database
+  postgres-db: 
+    profiles:  # skip starting by default
+      - donotstart
+    image: postgres:9.6
+    environment: 
+      POSTGRES_USER: someUser
+      POSTGRES_PASSWORD: somePassword
+      POSTGRES_DB: someDB
+    volumes:
+      - database-data:/var/lib/postgresql/data/
+volumes: 
+  database-data:

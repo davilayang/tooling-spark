@@ -23,4 +23,4 @@ ENTRYPOINT []
 CMD ["bash"]
 
 
-# docker build ./image_base -t spark_base:latest
+# docker build ./image_base -t local/spark-base:latest

@@ -4,23 +4,12 @@ SHELL=/bin/bash
 build-base:
 	docker build ./image_base -t spark_base:latest	
 
-# build the venv for Python dependencies
-build-venv: 
-	python -m venv --copies pyspark_venv
-	./pyspark_venv/bin/pip install -r requirements.txt
-	./pyspark_venv/bin/venv-pack --force -p ./pyspark_venv/ -o ./mounted_dirs/jobs/pyspark_venv.tar.gz
-	rm -fr pyspark_venv/
-
-# copy requirements.txt for jupyter server
+# copy Python requirements to related services
 copy-req:
 	cp ./requirements.txt ./image_jupyter/requirements.txt
-	cp ./requirements.txt ./image_spark/requirements.txt
+	cp ./requirements.txt ./pyspark_venv/requirements.txt
 
 # build the cluster
-# build: build-base build-venv copy-req
-# 	docker-compose build 
-# comment out build-venv for running by installing Python dependencies 
-
 build: build-base copy-req
 	docker-compose build 
 

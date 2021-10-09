@@ -7,7 +7,7 @@ build-base:
 # copy Python requirements to related services
 copy-req:
 	cp ./requirements.txt ./image_jupyter/requirements.txt
-	cp ./requirements.txt ./pyspark_venv/requirements.txt
+	cp ./requirements.txt ./image_venv/requirements.txt
 
 # build the cluster
 build: build-base copy-req

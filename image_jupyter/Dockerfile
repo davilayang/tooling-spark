@@ -1,4 +1,4 @@
-FROM spark_base:latest
+FROM local/spark-base:latest
 
 WORKDIR /app
 

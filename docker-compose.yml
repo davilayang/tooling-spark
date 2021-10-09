@@ -32,6 +32,7 @@ x-spark-worker-common:
 services:
   # prepare base image
   base:
+    image: local/spark-base
     build: 
       context: ./image_base
       labels:
@@ -42,7 +43,7 @@ services:
     depends_on: 
       - base
     build: 
-      context: ./pyspark_venv
+      context: ./image_venv
       labels:
         cluster: spark 
     volumes:

@@ -1,6 +1,6 @@
 # pyspark_venv
 
-Builds Python dependencies as archvies and then submit PySpark job with it
+Builds Python dependencies as archives and then submit PySpark job with it
 
 ## Instructions
 
@@ -59,9 +59,9 @@ TODO: try with other cluster managers, e.g. Kubernetes
 
 ## Notes
 
-When using `venv` from Python, the created virutal environment is using symbolic link to point to Python interpreter of local system by default. However, the path to Python on host machine (i.e. local system) is different than that of Spark nodes. On the Spark nodes of this repository, Python is at `/usr/local/bin/Python`. 
+When using `venv` from Python, the created virtual environment is using symbolic link to point to Python interpreter of local system by default. However, the path to Python on host machine (i.e. local system) is different than that of Spark nodes. On the Spark nodes of this repository, Python is at `/usr/local/bin/Python`. 
 
-So simply building the archived dependencies from host machine dose not work. Because when Spark extracts the archvie and tries to run its Python, it cannot find the correct Python on the workers.  
+So simply building the archived dependencies from host machine dose not work. Because when Spark extracts the archive and tries to run its Python, it cannot find the correct Python on the workers.  
 
 For Python archived dependencies to work with this multi-node cluster (including Spark and Jupyter Server): 
 
@@ -70,7 +70,7 @@ For Python archived dependencies to work with this multi-node cluster (including
 3. Package the dependencies from spark-like container
 4. Use the dependencies by 
     - specifying environment variable `PYSPARK_PYTHON` (for workers to use extracted Python)
-    - with `--archives` flag or `spark.archives` in config (for adding archvie to workers)   
+    - with `--archives` flag or `spark.archives` in config (for adding archive to workers)   
 
 ## References
 

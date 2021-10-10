@@ -1,5 +1,4 @@
 package my.example.pi_compute
-package my.example.pi_compute
 
 import org.apache.spark.sql.SparkSession
 

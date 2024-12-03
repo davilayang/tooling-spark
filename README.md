@@ -52,6 +52,8 @@ spark-submit --master spark://localhost:7077 \
     <path-to-JAR>
 ```
 
+TODO: can --files work with adding a csv file and then reading into DataFrame?
+
 Note that the absolute path should be the same as the path to load uploaded files in applications
 
 ## Service ports 

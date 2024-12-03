@@ -20,17 +20,17 @@ ENV PATH="/home/${USER_NAME}/.local/bin:${PATH}"
 
 # required Python packages 
 RUN pip install --user --no-cache-dir --upgrade \
-    "jupyterlab>=3.0.12,<4.0.0" \
-    "jupyterlab-vim>=0.14.2,<1.0.0" \
+    "jupyterlab>=3.1.18,<4.0.0" \
+    "jupyterlab-vim>=0.14.5,<1.0.0" \
+    "spylon-kernel>=0.4.1,<1.0.0" \
     "pyspark==${SPARK_VERSION}"
+
+# adding spylon_kernel for scala in jupyter
+RUN python -m spylon_kernel install --user
 
 # additional Python packages
 COPY requirements.txt requirements.txt
 RUN pip install --user --no-cache-dir -r requirements.txt
-
-# using scala in jupyter notebook
-RUN pip install --user spylon-kernel
-RUN python -m spylon_kernel install --user
 
 # config jupyter theme, theme: dracula or monokai
 COPY ./theme-dark-extension/index-dracula.css \
